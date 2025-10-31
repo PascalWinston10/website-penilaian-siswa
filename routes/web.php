@@ -5,9 +5,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiswaController;
 use Inertia\Inertia;
-use Illuminate\Http\Request;          // <-- Pastikan ini ada
-use Illuminate\Support\Facades\Auth;       // <-- Pastikan ini ada
-use Illuminate\Support\Facades\Redirect;   // <-- Pastikan ini ada
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\UserController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,17 @@ Route::middleware(['auth', 'verified', 'guru'])->group(function () {
     Route::get('/siswa/{siswa}/edit', [SiswaController::class, 'edit'])->name('siswa.edit');
     Route::put('/siswa/{siswa}', [SiswaController::class, 'update'])->name('siswa.update');
     Route::delete('/siswa/{siswa}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    
+    // --- BARIS YANG DIPERBAIKI ---
+    Route::post('/users', [UserController::class, 'store'])->name('users.store'); 
+    // ----------------------------
+    
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 require __DIR__.'/auth.php';

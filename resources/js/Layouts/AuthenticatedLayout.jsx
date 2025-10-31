@@ -35,12 +35,26 @@ export default function Authenticated({ user, header, children }) {
 
                                 {/* --- INI PERUBAHAN UTAMA (DESKTOP) --- */}
                                 {user.role === "guru" && (
-                                    <NavLink
-                                        href={route("siswa.index")}
-                                        active={route().current("siswa.index")}
-                                    >
-                                        Siswa
-                                    </NavLink>
+                                    <>
+                                        {" "}
+                                        {/* Kita butuh fragment (<>) untuk membungkus 2 link */}
+                                        <NavLink
+                                            href={route("siswa.index")}
+                                            active={route().current(
+                                                "siswa.index"
+                                            )}
+                                        >
+                                            Siswa
+                                        </NavLink>
+                                        <NavLink
+                                            href={route("users.index")}
+                                            active={route().current(
+                                                "users.index"
+                                            )}
+                                        >
+                                            Manajemen Pengguna
+                                        </NavLink>
+                                    </>
                                 )}
                                 {/* ----------------------------------- */}
                             </div>
@@ -156,12 +170,23 @@ export default function Authenticated({ user, header, children }) {
 
                         {/* --- INI PERUBAHAN UTAMA (MOBILE) --- */}
                         {user.role === "guru" && (
-                            <ResponsiveNavLink
-                                href={route("siswa.index")}
-                                active={route().current("siswa.index")}
-                            >
-                                Siswa
-                            </ResponsiveNavLink>
+                            <>
+                                {" "}
+                                {/* Fragment lagi */}
+                                <ResponsiveNavLink
+                                    href={route("siswa.index")}
+                                    active={route().current("siswa.index")}
+                                >
+                                    Siswa
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    href={route("users.index")}
+                                    active={route().current("users.index")}
+                                >
+                                    Manajemen Pengguna
+                                </ResponsiveNavLink>
+                                {/* -------------------------- */}
+                            </>
                         )}
                         {/* ---------------------------------- */}
                     </div>
