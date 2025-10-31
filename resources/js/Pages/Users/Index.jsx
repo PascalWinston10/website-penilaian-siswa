@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, usePage } from "@inertia/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 
 // Terima 'filters' sebagai prop baru
