@@ -30,19 +30,14 @@ Route::get('/', function () {
 // --- GRUP UNTUK SEMUA PENGGUNA (SISWA & GURU) ---
 Route::middleware(['auth', 'verified'])->group(function () {
     
-    // ** INI "PENJAGA PINTU" YANG HILANG **
     Route::get('/dashboard', function (Request $request) {
         if ($request->user()->role === 'guru') {
-            // Jika guru, lempar ke halaman admin (CRUD Siswa)
             return Redirect::route('siswa.index');
         } else {
-            // Jika bukan guru (default 'siswa'), lempar ke dashboard siswa
             return Redirect::route('dashboard.siswa');
         }
-    })->name('dashboard'); // <-- Ini 'HOME' default Laravel
+    })->name('dashboard');
 
-    // ** INI RUTE BARU YANG HILANG **
-    // Halaman Dashboard Siswa yang baru
     Route::get('/dashboard-siswa', function () {
         return Inertia::render('DashboardSiswa');
     })->name('dashboard.siswa');
@@ -54,8 +49,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // --- GRUP KHUSUS GURU (ADMIN PANEL) ---
-// ** INI STRUKTUR YANG BENAR **
-// Terpisah dari grup 'auth' utama
 Route::middleware(['auth', 'verified', 'guru'])->group(function () {
     Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
     Route::get('/siswa/create', [SiswaController::class, 'create'])->name('siswa.create');
@@ -66,11 +59,7 @@ Route::middleware(['auth', 'verified', 'guru'])->group(function () {
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-    
-    // --- BARIS YANG DIPERBAIKI ---
     Route::post('/users', [UserController::class, 'store'])->name('users.store'); 
-    // ----------------------------
-    
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
